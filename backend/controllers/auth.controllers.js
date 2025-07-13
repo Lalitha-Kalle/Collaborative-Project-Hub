@@ -1,5 +1,15 @@
-const StatusCodes = require("http-status-codes")
+require('dotenv').config()
 const User = require("../models/User")
+const jwt = require("jsonwebtoken")
+const { StatusCodes } = require("http-status-codes")
+
+const generateToken = (userId, role) => {
+  return jwt.sign(
+    {userId, role},
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRY }
+  )
+}
 
 const signUp = async (req, res) => {
   try {
@@ -28,7 +38,7 @@ const signUp = async (req, res) => {
     })
 
   } catch(err) {
-    console.error(err)
+    console.error('Signup error', err)
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: "Server error"
     })
