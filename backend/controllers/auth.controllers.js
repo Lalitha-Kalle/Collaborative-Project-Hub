@@ -28,8 +28,10 @@ const signUp = async (req, res) => {
     })
 
   } catch(err) {
-    console.error("")
-    res.status().json({})
+    console.error(err)
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      message: "Server error"
+    })
   }
 }
 
