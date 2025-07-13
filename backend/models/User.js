@@ -28,7 +28,11 @@ const userSchema = mongoose.Schema({
   bio: {
     type: String,
     maxLength: 50
-  }
+  },
+  posts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post', // Reference to Post model
+  }],
 }, { timestamps: true})
 
 const User = mongoose.model("User", userSchema)
